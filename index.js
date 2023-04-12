@@ -1,15 +1,15 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
-const express = require('express');
+import { get } from 'axios';
+import { load } from 'cheerio';
+import express, { urlencoded } from 'express';
 
 const app = express();
 
-app.use(express.urlencoded({ extended: true }));
+app.use(urlencoded({ extended: true }));
 
 async function fetchAndExtractContent(url) {
   try {
-    const response = await axios.get(url);
-    const $ = cheerio.load(response.data);
+    const response = await get(url);
+    const $ = load(response.data);
 
     const articleBody = $('div[itemprop="articleBody"].news-txt').first();
     return articleBody.html();
@@ -69,4 +69,4 @@ app.post('/fetch', async (req, res) => {
   res.send(content);
 });
 
-module.exports = app;
+export default app;
