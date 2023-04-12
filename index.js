@@ -3,7 +3,6 @@ const cheerio = require('cheerio');
 const express = require('express');
 
 const app = express();
-const PORT = 3000;
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -70,6 +69,4 @@ app.post('/fetch', async (req, res) => {
   res.send(content);
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
-});
+module.exports = app;
