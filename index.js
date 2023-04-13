@@ -1,4 +1,3 @@
-import { get } from 'axios';
 import { load } from 'cheerio';
 import express, { urlencoded } from 'express';
 
@@ -8,8 +7,8 @@ app.use(urlencoded({ extended: true }));
 
 async function fetchAndExtractContent(url) {
   try {
-    const response = await get(url);
-    const $ = load(response.data);
+    const html = await fetch(url).then((res) => res.text());
+    const $ = load(html);
 
     const articleBody = $('div[itemprop="articleBody"].news-txt').first();
     return articleBody.html();
