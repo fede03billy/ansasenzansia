@@ -1,9 +1,11 @@
 import { load } from 'cheerio';
+import cors from 'cors';
 import express, { urlencoded } from 'express';
 
 const app = express();
 
 app.use(urlencoded({ extended: true }));
+app.use(cors());
 
 async function fetchAndExtractContent(url) {
   try {
